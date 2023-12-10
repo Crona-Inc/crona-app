@@ -21,6 +21,9 @@ class Task
     #[ORM\OneToMany(mappedBy: 'task', targetEntity: TimeLog::class)]
     private Collection $timeLogs;
 
+    #[ORM\ManyToOne(inversedBy: 'tasks')]
+    private ?Project $project = null;
+
     public function __construct()
     {
         $this->timeLogs = new ArrayCollection();
@@ -69,6 +72,18 @@ class Task
                 $timeLog->setTask(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getProject(): ?Project
+    {
+        return $this->project;
+    }
+
+    public function setProject(?Project $project): static
+    {
+        $this->project = $project;
 
         return $this;
     }
