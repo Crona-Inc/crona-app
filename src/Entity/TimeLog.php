@@ -26,6 +26,12 @@ class TimeLog
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $note = null;
 
+    #[ORM\ManyToOne(inversedBy: 'timeLogs')]
+    private ?Task $task = null;
+
+    #[ORM\ManyToOne(inversedBy: 'timeLogs')]
+    private ?Project $project = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -75,6 +81,30 @@ class TimeLog
     public function setNote(?string $note): static
     {
         $this->note = $note;
+
+        return $this;
+    }
+
+    public function getTask(): ?Task
+    {
+        return $this->task;
+    }
+
+    public function setTask(?Task $task): static
+    {
+        $this->task = $task;
+
+        return $this;
+    }
+
+    public function getProject(): ?Project
+    {
+        return $this->project;
+    }
+
+    public function setProject(?Project $project): static
+    {
+        $this->project = $project;
 
         return $this;
     }
